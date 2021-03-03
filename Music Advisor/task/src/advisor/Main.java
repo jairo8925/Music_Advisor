@@ -7,26 +7,53 @@ public class Main {
     public static void main(String[] args) {
         Scanner console = new Scanner(System.in);
         boolean running = true;
+        boolean access = false;
         while (running) {
             String[] choice = console.nextLine().split(" ");
             switch (choice[0]) {
                 case "featured":
-                    displayFeatured();
+                    if (isAuthorized(access)) {
+                        displayFeatured();
+                    }
                     break;
                 case "new":
-                    displayNew();
+                    if (isAuthorized(access)) {
+                        displayNew();
+                    }
                     break;
                 case "categories":
-                    displayCategories();
+                    if (isAuthorized(access)) {
+                        displayCategories();
+                    }
                     break;
                 case "playlists":
-                    displayPlaylist(choice[1]);
+                    if (isAuthorized(access)) {
+                        displayPlaylist(choice[1]);
+                    }
+                    break;
+                case "auth":
+                    access = true;
+                    authorize();
                     break;
                 case "exit":
                     running = false;
                     System.out.println("---GOODBYE!---");
                     break;
             }
+        }
+    }
+
+    public static void authorize() {
+        System.out.println("---SUCCESS---");
+        System.out.println("https://accounts.spotify.com/authorize?client_id=fdea9ae7b29147fa98559b2030212918&redirect_uri=https://www.example.com&response_type=code");
+    }
+
+    public static boolean isAuthorized(boolean access) {
+        if (!access) {
+            System.out.println("Please, provide access for application.");
+            return false;
+        } else {
+            return true;
         }
     }
 
