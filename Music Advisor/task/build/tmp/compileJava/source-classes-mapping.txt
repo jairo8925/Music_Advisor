@@ -1,2 +1,8 @@
 advisor/Main.java
  advisor.Main
+advisor/Config.java
+ advisor.Config
+advisor/Authorization.java
+ advisor.Authorization
+advisor/Controller.java
+ advisor.Controller
