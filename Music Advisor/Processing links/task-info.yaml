@@ -1089,34 +1089,17 @@ files:
 feedback_link: https://hyperskill.org/projects/62/stages/338/implement#comment
 status: Failed
 feedback:
-  message: |-
-    Wrong answer in test #2
-
-    There are no categories in correct format on &quot;category&quot; action
-
-    Please find below the output of your program during this failed test.
-    Note that the &#39;&gt;&#39; character indicates the beginning of the input line.
-
-    ---
-
-    Arguments: -access http://127.0.0.1:45678 -resource http://127.0.0.1:56789
-
-    &gt; auth
-    use this link to request the access code:
-    http://127.0.0.1:45678/authorize?client_id=fdea9ae7b29147fa98559b2030212918&amp;redirect_uri=http://localhost:8080&amp;response_type=code
-    waiting for code...
-    Tester: making requests to redirect uri: http://localhost:8080
-    Tester: Error: Connection refused
-    making http request for access_token...
-    response:
-    {&quot;access_token&quot;:&quot;456456&quot;,&quot;token_type&quot;:&quot;Bearer&quot;,&quot;expires_in&quot;:3600,&quot;refresh_token&quot;:&quot;567567&quot;,&quot;scope&quot;:&quot;&quot;}
-
-    ---SUCCESS---
-    &gt; categories
-    ---CATEGORIES---
-    Top Lists
-    Pop
-    Mood
-    Latin
-  time: Sun, 16 May 2021 07:46:18 UTC
+  message: "Exception in test #8\n\njava.lang.IllegalStateException: Not a JSON Object:\
+    \ null\n\tat com.google.gson.JsonElement.getAsJsonObject(JsonElement.java:91)\n\
+    \tat advisor.GetPlaylist.getPlaylist(GetPlaylist.java:58)\n\tat advisor.Controller.showMenu(Controller.java:38)\n\
+    \tat advisor.Controller.startProgram(Controller.java:10)\n\tat advisor.Main.main(Main.java:17)\n\
+    \nPlease find below the output of your program during this failed test.\nNote\
+    \ that the &#39;&gt;&#39; character indicates the beginning of the input line.\n\
+    \n---\n\nArguments: -access http://127.0.0.1:45678 -resource http://127.0.0.1:56789\n\
+    \n&gt; auth\nuse this link to request the access code:\nhttp://127.0.0.1:45678/authorize?client_id=fdea9ae7b29147fa98559b2030212918&amp;redirect_uri=http://localhost:8080&amp;response_type=code\n\
+    waiting for code...\nTester: making requests to redirect uri: http://localhost:8080\n\
+    Tester: Error: Connection refused\nmaking http request for access_token...\nresponse:\n\
+    {&quot;access_token&quot;:&quot;456456&quot;,&quot;token_type&quot;:&quot;Bearer&quot;,&quot;expires_in&quot;:3600,&quot;refresh_token&quot;:&quot;567567&quot;,&quot;scope&quot;:&quot;&quot;}\n\
+    \n---SUCCESS---\n&gt; playlists Party Time"
+  time: Sun, 16 May 2021 08:36:35 UTC
 record: -1

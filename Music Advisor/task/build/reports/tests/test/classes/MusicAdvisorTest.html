@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">20.499s</div>
+<div class="counter">51.096s</div>
 <p>duration</p>
 </div>
 </td>
@@ -79,9 +79,14 @@
 <a name="start"></a>
 <h3 class="failures">start</h3>
 <span class="code">
-<pre>java.lang.AssertionError: Wrong answer in test #2
+<pre>java.lang.AssertionError: Exception in test #8
 
-There are no categories in correct format on &quot;category&quot; action
+java.lang.IllegalStateException: Not a JSON Object: null
+	at com.google.gson.JsonElement.getAsJsonObject(JsonElement.java:91)
+	at advisor.GetPlaylist.getPlaylist(GetPlaylist.java:58)
+	at advisor.Controller.showMenu(Controller.java:38)
+	at advisor.Controller.startProgram(Controller.java:10)
+	at advisor.Main.main(Main.java:17)
 
 Please find below the output of your program during this failed test.
 Note that the '&gt;' character indicates the beginning of the input line.
@@ -101,12 +106,7 @@ response:
 {&quot;access_token&quot;:&quot;456456&quot;,&quot;token_type&quot;:&quot;Bearer&quot;,&quot;expires_in&quot;:3600,&quot;refresh_token&quot;:&quot;567567&quot;,&quot;scope&quot;:&quot;&quot;}
 
 ---SUCCESS---
-&gt; categories
----CATEGORIES---
-Top Lists
-Pop
-Mood
-Latin
+&gt; playlists Party Time
 	at org.junit.Assert.fail(Assert.java:88)
 	at org.hyperskill.hstest.stage.StageTest.start(StageTest.java:141)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -173,7 +173,7 @@ Latin
 </thead>
 <tr>
 <td class="failures">start</td>
-<td class="failures">20.499s</td>
+<td class="failures">51.096s</td>
 <td class="failures">failed</td>
 </tr>
 </table>
@@ -210,11 +210,92 @@ response:
 
 ---SUCCESS---
 &gt; categories
----CATEGORIES---
 Top Lists
-Pop
-Mood
-Latin
+
+Super Mood
+
+Party Time
+
+&gt; exit
+---GOODBYE!---
+?[1;31m
+Start test 3?[0m
+&gt; categories
+Please, provide access for application.
+&gt; exit
+---GOODBYE!---
+?[1;31m
+Start test 4?[0m
+&gt; auth
+use this link to request the access code:
+http://127.0.0.1:45678/authorize?client_id=fdea9ae7b29147fa98559b2030212918&amp;redirect_uri=http://localhost:8080&amp;response_type=code
+waiting for code...
+Tester: making requests to redirect uri: http://localhost:8080
+Tester: Error: Connection refused
+making http request for access_token...
+response:
+{&quot;access_token&quot;:&quot;456456&quot;,&quot;token_type&quot;:&quot;Bearer&quot;,&quot;expires_in&quot;:3600,&quot;refresh_token&quot;:&quot;567567&quot;,&quot;scope&quot;:&quot;&quot;}
+
+---SUCCESS---
+&gt; featured
+Monday Morning Mood
+http://open.spotify.com/user/spotify/playlist/6ftJBzU2LLQcaKefMi7ee7
+
+Upp och hoppa!
+http://open.spotify.com/user/spotify__sverige/playlist/4uOEx4OUrkoGNZoIlWMUbO
+
+&gt; exit
+---GOODBYE!---
+?[1;31m
+Start test 5?[0m
+&gt; featured
+Please, provide access for application.
+&gt; exit
+---GOODBYE!---
+?[1;31m
+Start test 6?[0m
+&gt; auth
+use this link to request the access code:
+http://127.0.0.1:45678/authorize?client_id=fdea9ae7b29147fa98559b2030212918&amp;redirect_uri=http://localhost:8080&amp;response_type=code
+waiting for code...
+Tester: making requests to redirect uri: http://localhost:8080
+Tester: Error: Connection refused
+making http request for access_token...
+response:
+{&quot;access_token&quot;:&quot;456456&quot;,&quot;token_type&quot;:&quot;Bearer&quot;,&quot;expires_in&quot;:3600,&quot;refresh_token&quot;:&quot;567567&quot;,&quot;scope&quot;:&quot;&quot;}
+
+---SUCCESS---
+&gt; new
+Runnin'
+[Pharrell Williams]
+https://open.spotify.com/album/5ZX4m5aVSmWQ5iHAPQpT71
+
+Sneakin'
+[Drake2, Drake3]
+https://open.spotify.com/album/0geTzdk2InlqIoB16fW9Nd
+
+&gt; exit
+---GOODBYE!---
+?[1;31m
+Start test 7?[0m
+&gt; new
+Please, provide access for application.
+&gt; exit
+---GOODBYE!---
+?[1;31m
+Start test 8?[0m
+&gt; auth
+use this link to request the access code:
+http://127.0.0.1:45678/authorize?client_id=fdea9ae7b29147fa98559b2030212918&amp;redirect_uri=http://localhost:8080&amp;response_type=code
+waiting for code...
+Tester: making requests to redirect uri: http://localhost:8080
+Tester: Error: Connection refused
+making http request for access_token...
+response:
+{&quot;access_token&quot;:&quot;456456&quot;,&quot;token_type&quot;:&quot;Bearer&quot;,&quot;expires_in&quot;:3600,&quot;refresh_token&quot;:&quot;567567&quot;,&quot;scope&quot;:&quot;&quot;}
+
+---SUCCESS---
+&gt; playlists Party Time
 </pre>
 </span>
 </div>
@@ -222,6 +303,42 @@ Latin
 <h2>Standard error</h2>
 <span class="code">
 <pre>java.net.ConnectException: Connection refused
+	at java.net.http/jdk.internal.net.http.HttpClientImpl.send(HttpClientImpl.java:561)
+	at java.net.http/jdk.internal.net.http.HttpClientFacade.send(HttpClientFacade.java:119)
+	at Server.run(Server.java:74)
+Caused by: java.net.ConnectException: Connection refused
+	at java.base/sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)
+	at java.base/sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:779)
+	at java.net.http/jdk.internal.net.http.PlainHttpConnection$ConnectEvent.handle(PlainHttpConnection.java:128)
+	at java.net.http/jdk.internal.net.http.HttpClientImpl$SelectorManager.handleEvent(HttpClientImpl.java:957)
+	at java.net.http/jdk.internal.net.http.HttpClientImpl$SelectorManager.lambda$run$3(HttpClientImpl.java:912)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1541)
+	at java.net.http/jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:912)
+java.net.ConnectException: Connection refused
+	at java.net.http/jdk.internal.net.http.HttpClientImpl.send(HttpClientImpl.java:561)
+	at java.net.http/jdk.internal.net.http.HttpClientFacade.send(HttpClientFacade.java:119)
+	at Server.run(Server.java:74)
+Caused by: java.net.ConnectException: Connection refused
+	at java.base/sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)
+	at java.base/sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:779)
+	at java.net.http/jdk.internal.net.http.PlainHttpConnection$ConnectEvent.handle(PlainHttpConnection.java:128)
+	at java.net.http/jdk.internal.net.http.HttpClientImpl$SelectorManager.handleEvent(HttpClientImpl.java:957)
+	at java.net.http/jdk.internal.net.http.HttpClientImpl$SelectorManager.lambda$run$3(HttpClientImpl.java:912)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1541)
+	at java.net.http/jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:912)
+java.net.ConnectException: Connection refused
+	at java.net.http/jdk.internal.net.http.HttpClientImpl.send(HttpClientImpl.java:561)
+	at java.net.http/jdk.internal.net.http.HttpClientFacade.send(HttpClientFacade.java:119)
+	at Server.run(Server.java:74)
+Caused by: java.net.ConnectException: Connection refused
+	at java.base/sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)
+	at java.base/sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:779)
+	at java.net.http/jdk.internal.net.http.PlainHttpConnection$ConnectEvent.handle(PlainHttpConnection.java:128)
+	at java.net.http/jdk.internal.net.http.HttpClientImpl$SelectorManager.handleEvent(HttpClientImpl.java:957)
+	at java.net.http/jdk.internal.net.http.HttpClientImpl$SelectorManager.lambda$run$3(HttpClientImpl.java:912)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1541)
+	at java.net.http/jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:912)
+java.net.ConnectException: Connection refused
 	at java.net.http/jdk.internal.net.http.HttpClientImpl.send(HttpClientImpl.java:561)
 	at java.net.http/jdk.internal.net.http.HttpClientFacade.send(HttpClientFacade.java:119)
 	at Server.run(Server.java:74)
@@ -256,7 +373,7 @@ Caused by: java.net.ConnectException: Connection refused
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 6.6.1</a> at May 16, 2021, 12:46:18 AM</p>
+<a href="http://www.gradle.org">Gradle 6.6.1</a> at May 16, 2021, 1:36:35 AM</p>
 </div>
 </div>
 </body>

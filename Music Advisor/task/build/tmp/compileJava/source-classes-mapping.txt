@@ -1,8 +1,20 @@
+advisor/GetNew.java
+ advisor.GetNew
 advisor/Main.java
  advisor.Main
 advisor/Config.java
  advisor.Config
+advisor/GetRequest.java
+ advisor.GetRequest
 advisor/Authorization.java
  advisor.Authorization
+advisor/SpotifyBeans.java
+ advisor.SpotifyBeans
+advisor/GetFeatured.java
+ advisor.GetFeatured
+advisor/GetPlaylist.java
+ advisor.GetPlaylist
 advisor/Controller.java
  advisor.Controller
+advisor/GetCategories.java
+ advisor.GetCategories
