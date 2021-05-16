@@ -2,8 +2,17 @@ package advisor;
 
 public class Main {
     public static void main(String[] args) {
-        if (args.length > 1 && args[0].equals("-access")) { Config.SERVER_PATH = args[1]; }
-
+        if (args.length > 1) {
+            for (int i = 0; i < args.length - 1; i++)
+                switch (args[i]) {
+                    case "-access":
+                        Config.SERVER_PATH = args[i + 1];
+                        break;
+                    case "-resource":
+                        Config.RESOURCE = args[i + 1];
+                        break;
+                }
+        }
         Controller controller = new Controller();
         controller.startProgram();
     }

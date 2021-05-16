@@ -3,7 +3,7 @@ hyperskill_project:
   ide_files: https://stepik.org/media/attachments/lesson/210107/additional_files.json
   is_template_based: false
   use_ide: true
-update_date: Wed, 03 Mar 2021 23:37:48 UTC
+update_date: Sun, 16 May 2021 07:29:15 UTC
 stages:
 - id: 335
   step: 5477
@@ -22,20 +22,16 @@ stages:
   is_completed: false
 topics:
   0:
-  - title: Introduction to Scala
-    theory_id: 8945
+  - title: JVM, JRE, and JDK
+    theory_id: 3499
   - title: Units of information
     theory_id: 6865
-  - title: Introduction to operating systems
-    theory_id: 9704
   - title: IDE
     theory_id: 10996
-  - title: Command line overview
-    theory_id: 8977
-  - title: Parameters and options
-    theory_id: 9746
-  - title: Introduction to OOP
-    theory_id: 3614
+  - title: Introduction to operating systems
+    theory_id: 9704
+  - title: Computer programming
+    theory_id: 8739
   - title: Introduction to Java
     theory_id: 3500
   - title: Basic literals
@@ -54,6 +50,8 @@ topics:
     theory_id: 3513
   - title: Scanning the input
     theory_id: 9055
+  - title: Introduction to OOP
+    theory_id: 3614
   - title: Arithmetic operations
     theory_id: 3519
   - title: Integer types and operations
@@ -78,8 +76,10 @@ topics:
     theory_id: 3507
   - title: Switch statement
     theory_id: 3504
-  - title: Introduction to Kotlin
-    theory_id: 4350
+  - title: Write, compile, and run
+    theory_id: 3739
+  - title: Build tools
+    theory_id: 4284
   - title: Sizes and ranges
     theory_id: 3532
   - title: Type casting
@@ -102,18 +102,16 @@ topics:
     theory_id: 3523
   - title: Processing strings
     theory_id: 3551
-  - title: IntelliJ IDEA
-    theory_id: 3801
-  - title: Write, compile, and run
-    theory_id: 3739
-  - title: JVM, JRE, and JDK
-    theory_id: 3499
-  - title: Running programs on your computer
-    theory_id: 3746
   - title: StringBuilder
     theory_id: 3812
-  - title: Build tools
-    theory_id: 4284
+  - title: IntelliJ IDEA
+    theory_id: 3801
+  - title: Command line overview
+    theory_id: 8977
+  - title: Parameters and options
+    theory_id: 9746
+  - title: Running programs on your computer
+    theory_id: 3746
   - title: Java Archive
     theory_id: 4311
   - title: Maven basics
@@ -176,14 +174,14 @@ topics:
     theory_id: 6740
   - title: HTTP messages
     theory_id: 6752
-  - title: JSON
-    theory_id: 6854
   - title: Errors in programs
     theory_id: 3536
   - title: What is an exception
     theory_id: 3497
   - title: NPE
     theory_id: 1945
+  - title: JSON
+    theory_id: 6854
   - title: Gradle basics
     theory_id: 5075
   - title: Basic project with Gradle

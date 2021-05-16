@@ -868,6 +868,240 @@ files:
         }
     }
   learner_created: false
+- name: src/advisor/Controller.java
+  visible: true
+  text: |
+    package advisor;
+
+    import java.util.Scanner;
+
+    public class Controller {
+        static boolean active;
+
+        void startProgram() {
+            active = true;
+            showMenu();
+        }
+
+        void showMenu() {
+            Scanner console = new Scanner(System.in);
+
+            while(!console.hasNext("auth")) {
+                if (console.nextLine().equals("exit")) { exit(); break; }
+                System.out.println("Please, provide access for application.");
+            }
+
+            while(active) {
+                String[] commands = console.nextLine().split(" ");
+                switch (commands[0]) {
+                    case "featured":
+                        displayFeatured();
+                        break;
+                    case "new":
+                        displayNew();
+                        break;
+                    case "categories":
+                        displayCategories();
+                        break;
+                    case "playlists":
+                        displayPlaylist(commands[1]);
+                        break;
+                    case "auth":
+                        auth();
+                        break;
+                    case "exit":
+                        exit();
+                        break;
+                    default:
+                        error();
+                }
+            }
+        }
+
+        void auth() {
+            Authorization auth = new Authorization();
+            auth.createServer();
+            auth.requestAuth();
+        }
+
+        void displayFeatured() {
+            System.out.println("---FEATURED---");
+            System.out.println("Mellow Morning");
+            System.out.println("Wake Up and Smell the Coffee");
+            System.out.println("Monday Motivation");
+            System.out.println("Songs to Sing in the Shower");
+        }
+
+        void displayNew() {
+            System.out.println("---NEW RELEASES---");
+            System.out.println("Mountains [Sia, Diplo, Labrinth]");
+            System.out.println("Runaway [Lil Peep]");
+            System.out.println("The Greatest Show [Panic! At The Disco]");
+            System.out.println("All Out Life [Slipknot]");
+        }
+
+        void displayCategories() {
+            System.out.println("---CATEGORIES---");
+            System.out.println("Top Lists");
+            System.out.println("Pop");
+            System.out.println("Mood");
+            System.out.println("Latin");
+        }
+
+        void displayPlaylist(String name) {
+            System.out.println("---" + name.toUpperCase() + " PLAYLISTS---");
+            System.out.println("Walk Like A Badass");
+            System.out.println("Rage Beats");
+            System.out.println("Arab Mood Booster");
+            System.out.println("Sunday Stroll");
+        }
+
+        void error() {
+            System.out.println("Unknown option");
+        }
+
+        void exit() {
+            active = false;
+            System.out.println("---GOODBYE!---");
+        }
+    }
+  learner_created: true
+- name: src/advisor/Config.java
+  visible: true
+  text: |
+    package advisor;
+
+    public class Config {
+        public static String SERVER_PATH = "https://accounts.spotify.com";
+        public static String REDIRECT_URI = "http://localhost:8080";
+        public static String CLIENT_ID = "fdea9ae7b29147fa98559b2030212918";
+        public static String CLIENT_SECRET = "95aa60a7f1e4479dba89e578d26596f7";
+        public static String ACCESS_TOKEN = "";
+        public static String AUTH_CODE = "";
+    }
+  learner_created: true
+- name: src/advisor/Authorization.java
+  visible: true
+  text: |
+    package advisor;
+
+    import com.google.gson.JsonObject;
+    import com.google.gson.JsonParser;
+    import com.sun.net.httpserver.HttpServer;
+
+    import java.io.IOException;
+    import java.net.InetSocketAddress;
+    import java.net.URI;
+    import java.net.http.HttpClient;
+    import java.net.http.HttpRequest;
+    import java.net.http.HttpResponse;
+
+    public class Authorization {
+
+        public void createServer() throws NullPointerException {
+            String uri = Config.SERVER_PATH + "/authorize" +
+                        "?client_id=" + Config.CLIENT_ID +
+                        "&redirect_uri=" + Config.REDIRECT_URI +
+                        "&response_type=code";
+            System.out.println("use this link to request the access code:\n" + uri);
+            try {
+                HttpServer server = HttpServer.create();
+                server.bind(new InetSocketAddress(8080), 0);
+                server.start();
+                server.createContext("/",
+                        exchange -> {
+                            String query = exchange.getRequestURI().getQuery();
+                            String request;
+                            if (query != null && query.contains("code")) {
+                                Config.AUTH_CODE = query.substring(5);
+                                System.out.println("code received");
+                                request = "Got the code. Return back to your program.";
+                            } else {
+                                request = "Not found authorization code. Try again.";
+                            }
+                            exchange.sendResponseHeaders(200, request.length());
+                            exchange.getResponseBody().write(request.getBytes());
+                            exchange.getResponseBody().close();
+                        }
+                );
+                System.out.println("waiting for code...");
+                if (Config.AUTH_CODE.equals("")) {
+                    Thread.sleep(10);
+                }
+                server.stop(10);
+            } catch (IOException | InterruptedException e) {
+                System.out.println("Server error occurred.");
+            }
+        }
+
+        void requestAuth() {
+            System.out.println("making http request for access_token...");
+            System.out.println("response:");
+            HttpRequest request = HttpRequest.newBuilder()
+                    .header("Content-Type", "application/x-www-form-urlencoded")
+                    .uri(URI.create(Config.SERVER_PATH + "/api/token"))
+                    .POST(HttpRequest.BodyPublishers.ofString(
+                            "grant_type=authorization_code" +
+                                    "&code=" + Config.AUTH_CODE +
+                                    "&client_id=" + Config.CLIENT_ID +
+                                    "&client_secret=" + Config.CLIENT_SECRET +
+                                    "&redirect_uri=" + Config.REDIRECT_URI))
+                    .build();
+            try {
+                HttpClient client = HttpClient.newBuilder().build();
+                HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                if (response != null && response.body().contains("access_token")) {
+                    parseAccessToken(response.body());
+                }
+                assert response != null;
+                System.out.println(response.body());
+                System.out.println( "\n---SUCCESS---");
+
+            } catch (InterruptedException | IOException e) {
+                System.out.println("Error response");
+            }
+        }
+
+        void parseAccessToken(String body) {
+            JsonObject jo = JsonParser.parseString(body).getAsJsonObject();
+            Config.ACCESS_TOKEN = jo.get("access_token").getAsString();
+        }
+    }
+  learner_created: true
+- name: src/GetNew.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/62/stages/338/implement#comment
-status: Unchecked
+status: Failed
+feedback:
+  message: |-
+    Wrong answer in test #2
+
+    There are no categories in correct format on &quot;category&quot; action
+
+    Please find below the output of your program during this failed test.
+    Note that the &#39;&gt;&#39; character indicates the beginning of the input line.
+
+    ---
+
+    Arguments: -access http://127.0.0.1:45678 -resource http://127.0.0.1:56789
+
+    &gt; auth
+    use this link to request the access code:
+    http://127.0.0.1:45678/authorize?client_id=fdea9ae7b29147fa98559b2030212918&amp;redirect_uri=http://localhost:8080&amp;response_type=code
+    waiting for code...
+    Tester: making requests to redirect uri: http://localhost:8080
+    Tester: Error: Connection refused
+    making http request for access_token...
+    response:
+    {&quot;access_token&quot;:&quot;456456&quot;,&quot;token_type&quot;:&quot;Bearer&quot;,&quot;expires_in&quot;:3600,&quot;refresh_token&quot;:&quot;567567&quot;,&quot;scope&quot;:&quot;&quot;}
+
+    ---SUCCESS---
+    &gt; categories
+    ---CATEGORIES---
+    Top Lists
+    Pop
+    Mood
+    Latin
+  time: Sun, 16 May 2021 07:46:18 UTC
 record: -1

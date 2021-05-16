@@ -14,7 +14,10 @@ public class Controller {
         Scanner console = new Scanner(System.in);
 
         while(!console.hasNext("auth")) {
-            if (console.nextLine().equals("exit")) { exit(); break; }
+            if (console.nextLine().equals("exit")) {
+                exit();
+                break;
+            }
             System.out.println("Please, provide access for application.");
         }
 
@@ -22,19 +25,22 @@ public class Controller {
             String[] commands = console.nextLine().split(" ");
             switch (commands[0]) {
                 case "featured":
-                    displayFeatured();
+                    GetFeatured.getFeatured();
                     break;
                 case "new":
-                    displayNew();
+                    GetNew.getNew();
                     break;
                 case "categories":
-                    displayCategories();
+                    GetCategories.getCategories();
                     break;
                 case "playlists":
-                    displayPlaylist(commands[1]);
+                    String categoryName = commands[1];
+                    GetPlaylist.getPlaylist(categoryName);
                     break;
                 case "auth":
-                    auth();
+                    Authorization auth = new Authorization();
+                    auth.createServer();
+                    auth.requestAuth();
                     break;
                 case "exit":
                     exit();
@@ -84,7 +90,7 @@ public class Controller {
     }
 
     void error() {
-        System.out.println("Unknown option");
+        System.out.println("Unknown option, try again.");
     }
 
     void exit() {
