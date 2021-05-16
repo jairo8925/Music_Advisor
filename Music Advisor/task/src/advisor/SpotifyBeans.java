@@ -28,17 +28,14 @@ public class SpotifyBeans {
 
         StringBuilder info = new StringBuilder();
 
-        if (album != null) {
-            info.append(album).append("\n"); }
-        if (artists != null) {
+        if (album != null)
+            info.append(album).append("\n");
+        if (artists != null)
             info.append(artists).append("\n");
-        }
-        if (link != null) {
+        if (link != null)
             info.append(link).append("\n");
-        }
-        if (category != null) {
+        if (category != null)
             info.append(category).append("\n");
-        }
 
         return info.toString().replaceAll("\"", "");
     }

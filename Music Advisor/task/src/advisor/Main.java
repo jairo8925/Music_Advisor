@@ -1,7 +1,7 @@
 package advisor;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         if (args.length > 1) {
             for (int i = 0; i < args.length - 1; i++)
                 switch (args[i]) {

@@ -1080,6 +1080,12 @@ files:
 - name: src/advisor/SpotifyBeans.java
   visible: true
   learner_created: true
+- name: src/advisor/GetPlaylist.java
+  visible: true
+  learner_created: true
+- name: src/advisor/GetCategories.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/62/stages/338/implement#comment
 status: Failed
 feedback:

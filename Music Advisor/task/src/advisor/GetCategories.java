@@ -11,10 +11,12 @@ import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetNew extends GetRequest {
-    public static void getNew() {
+public class GetCategories extends GetRequest {
+    public static void getCategories() {
+
+        String path = Config.RESOURCE + "/v1/browse/categories";
         List<SpotifyBeans> data = new ArrayList<>();
-        String path = Config.RESOURCE + "/v1/browse/new-releases";
+
         HttpRequest request = getRequest(path);
 
         try {
@@ -22,21 +24,11 @@ public class GetNew extends GetRequest {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
             JsonObject jo = JsonParser.parseString(response.body()).getAsJsonObject();
-            JsonObject categories = jo.getAsJsonObject("albums");
-
+            JsonObject categories = jo.getAsJsonObject("categories");
 
             for (JsonElement item : categories.getAsJsonArray("items")) {
                 SpotifyBeans elem = new SpotifyBeans();
-                elem.setAlbum(item.getAsJsonObject().get("name").toString());
-
-                StringBuilder artists = new StringBuilder("[");
-                for (JsonElement name : item.getAsJsonObject().getAsJsonArray("artists")) {
-                    if (!artists.toString().endsWith("[")) { artists.append(", "); }
-                    artists.append(name.getAsJsonObject().get("name"));
-                }
-                elem.setArtists(artists.append("]").toString());
-
-                elem.setLink(item.getAsJsonObject().get("external_urls").getAsJsonObject().get("spotify").toString());
+                elem.setCategory(item.getAsJsonObject().get("name").toString());
                 data.add(elem);
             }
 
