@@ -28,3 +28,7 @@ A personal music advisor that makes preference-based suggestions and shares link
 \
 \
 ```exit```
+
+## TODO
+- create a web page
+- redesign code (super messy right now)
